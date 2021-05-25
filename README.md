@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Assignment 1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## プロジェクトのリポジトリ
 
-## Available Scripts
+https://github.com/NakZMichael/assignment1
 
-In the project directory, you can run:
+## 起動方法
 
-### `yarn start`
+```
+yarn start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+で開発サーバが起動します。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## プロジェクトの解説
 
-### `yarn test`
+簡単なものでいいと言われたので本当に簡単なものしか作ってないです。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ヘッダーとログインフォームだけしかないページのみががあるアプリです。
 
-### `yarn build`
+TypeScriptを満足させるのが趣味なのでTypeScriptで書いてます。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`pages`ディレクトリに`LoginPage.tsx`があり、それは`components`ディレクトリの中の`Header.tsx`と`LoginForm.tsx`を使っています。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+NameとPasswordに値を入力したら`validateInput()`が入力された値が正しいか判別して正しければ`alert('Correct input! You can login!')`を実行し、正しくなければ`alert('Incorrect input! You can\'t login!')`を実行します。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Discussion
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+PHPは使ったことがないので、使用したことがあるテンプレートエンジンのGoとPythonのライブラリと比較してReactの気に入ってる点を書いていきます。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+一通り箇条書きした後に気付いたのですが、僕がReactで気に入ってる点はだいたい関心の分離ができているというところに収束しているなと思いました。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+まず、シングルページアプリケーションの利点としてフロントエンドとサーバーサイドとが明確に分断されることがあると思います。
+明確に分断されることによって以下のような恩恵があると思います。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 必然的にフロントエンドとサーバーサイドとの間のAPIを決めなくてはならない。これは小規模なプロジェクトでは煩わしく感じるかもしれないが、プロジェクトに規律をもたらしてくれると思います。
+  - Pythonのコードと汚いテンプレート用のHTMLをにらめっこしなくて済む。
+  - また、APIをモックにできるようになりテストも簡単になるので問題が起こったときにフロントエンドとサーバーサイドのどちらに問題があったのかわかりやすくなります。
+- フロントエンドで状態を持てる。
+  - 状態の管理はつらいですが、少し状態が変わるたびに毎回サーバーに新しいHTMLを要求するよりもフロントエンドとサーバーサイドの関心ごとの分離ができていいと思います。
+- 最悪、フロントエンドはJavaScript、サーバーサイドは使っている言語一つだけを使えれば良くなる。両方に精通していなくてはいけないということはない。(Node.jsがない世界)
+  - サーバーサイドとフロントエンドでは必要な知識が異なりますし、慣れるまでに時間もかかります。サーバーサイドではデータベースやビジネスルールの実装の知識が必要ですし、フロントエンドは変化の激しい流行を追いかけつつUI/UXを何とかしようと頑張ったりしないといけません。どっちもやるというのは理想的ですが、正直つらいと思います。
+- フロントエンド全体で共通のロジックやコンポーネントを使い回しやすくなる。
+  - テンプレートエンジンだと分割したHTMLを結合させる時はサーバーサイドに手を加えないといけなかったような記憶がある気がします。
+  - 共通のロジックをたくさん作ることで複雑なアプリが作れるようになると思います。
+  - React Nativeを使えばモバイルアプリへの移植もそんなにつらくなさそう(React Nativeほとんど触ったことないのでわからないですが)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+あとは先ほどの関心の分離という点からはズレますが、CSS-in-JSが使えるのも気に入っています。
+これは多分デザイナーさんとの協業ということを考えたときには普通にCSSやSASSを使った方がいいとは思うのですが、エンジニアだけでウェブページを作る際にHTMLとCSSとJavaScriptを行ったり来たりするのは管理がしづらいですし、HTMLやCSSはエディターからの警告もでないので些細なタイポで時間を取られたりすることもよくあるので、そういうのが減ったというだけでもかなり良いことだと思います。
+また、Themingの機能も色やpaddingの幅、フォントとかの情報を一箇所に集約して置けるのでウェブページ全体の色や幅を変えたいときに便利だと思いますし、モバイルとデスクトップでレイアウトを切り替えるときにpadding幅を狭くしたいとか簡単にできるので好きです。(今回はデフォルトのテーマを使ってますが)
